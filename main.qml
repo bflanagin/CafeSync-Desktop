@@ -691,8 +691,8 @@ Component.onCompleted: {if(width > height) {hmode = true;} else {hmode = false;}
                     id: passerbyGrid
 
                     //z:-1
-                    width: if(hmode == false) {parent.width } else {parent.width -themenu.width}
-                    x:if(hmode == false) {0 } else {themenu.width}
+                    width: if(hmode == false) {parent.width} else {(parent.width -themenu.width) * 0.95}
+                    x:if(hmode == false) {0 } else {themenu.width* 1.1}
                     height: parent.height * 0.98
                     //topMargin:mainView.width * 0.01
                     anchors.verticalCenter: parent.verticalCenter
@@ -703,7 +703,7 @@ Component.onCompleted: {if(width > height) {hmode = true;} else {hmode = false;}
                     visible: true
                    // spacing: passerbyGrid.width * 0.08
 
-                    cellHeight: passerbyGrid.width / 18 //passerbyGrid.height
+                    cellHeight: passerbyGrid.width / 16 //passerbyGrid.height
                     cellWidth: passerbyGrid.width / 5
 
                     clip:true
@@ -738,7 +738,7 @@ Component.onCompleted: {if(width > height) {hmode = true;} else {hmode = false;}
                                     Rectangle {
                                         color:seperatorColor1
                                         width: parent.width
-                                        height: parent.height * 0.1
+                                        height: parent.height * 0.07
                                         anchors.top: sortText.bottom
 
                                     }
@@ -752,7 +752,7 @@ Component.onCompleted: {if(width > height) {hmode = true;} else {hmode = false;}
                                 anchors.centerIn: parent
                                // width: passerbyGrid.width * 0.90
                                // height: if(cardsop == 1) {width * 0.4} else {width * 0.45}
-                                height: parent.height * 0.98
+                                height: parent.height
 
 
                                             }
@@ -768,9 +768,9 @@ Component.onCompleted: {if(width > height) {hmode = true;} else {hmode = false;}
 
                     }
 
-                    add: Transition {
+                   /* add: Transition {
                             NumberAnimation { properties: "y"; from: 0; duration: 200 }
-                        }
+                        } */
 
 
                     onContentYChanged: if(contentY < (-1 *(parent.height * 0.3)) && draggingVertically == false) {
@@ -801,8 +801,8 @@ Component.onCompleted: {if(width > height) {hmode = true;} else {hmode = false;}
                     id:notification
                     //anchors.fill: parent
                     anchors.centerIn: parent
-                    width: parent.width * 0.50
-                    height: parent.height * 0.50
+                    width: parent.width * 0.60
+                    //height: parent.height * 0.50
                   themessage : qsTr("No Cards found\n(Pull to Refresh, or hit the center button to try a larger search area)");
                     visible: if(cardload.running == false && passerbyGrid.count == 0) {true} else {false}
                 }
@@ -810,10 +810,10 @@ Component.onCompleted: {if(width > height) {hmode = true;} else {hmode = false;}
                 Item {
                     anchors.bottom:parent.bottom
                     anchors.right: parent.right
-                    anchors.rightMargin: mainView.width * 0.03
-                    anchors.bottomMargin: mainView.width * 0.03
-                    width: mainView.width * 0.07
-                    height:mainView.width * 0.07
+                    anchors.rightMargin: passerbyGrid.width * 0.03
+                    anchors.bottomMargin: passerbyGrid.width * 0.03
+                    width: passerbyGrid.width * 0.02
+                    height:passerbyGrid.width * 0.02
                     z:2
 
                     Image {
@@ -982,14 +982,27 @@ Component.onCompleted: {if(width > height) {hmode = true;} else {hmode = false;}
       }
 
 
+      DropShadow {
+             anchors.fill: mainScreen
+             horizontalOffset: -4
+             verticalOffset: 0
+             radius: 8.0
+             samples: 17
+             color: "#80000000"
+             source: mainScreen
+            // z:1
+             visible: mainScreen.visible
+
+         }
+
  MainScreen {
     id:mainScreen
     //anchors.fill:parent
    // x:passerbyGrid.x
-     x:if(hmode == false) {cardPage.x } else {passerbyGrid.width * 1.1}
+     x:if(hmode == false) {cardPage.x } else {passerbyGrid.width }
      y:cardPage.y
    // if(hmode == false) {parent.width } else {parent.width / 3}
-    width:if(hmode == false) {passerbyGrid.width } else {parent.width - passerbyGrid.width}
+    width:if(hmode == false) {passerbyGrid.width } else {parent.width - (passerbyGrid.width * 0.95)}
      // height:passerbyGrid.height
      height: parent.height - topBar.height
 
@@ -1010,11 +1023,13 @@ Component.onCompleted: {if(width > height) {hmode = true;} else {hmode = false;}
 
 }
 
+
+
  Setup {
      id:settingsPage
 
-     width:parent.width
-     height:parent.height- topBar.height
+     width:passerbyGrid.width
+     height:passerbyGrid.height- topBar.height
         y:topBar.height
          state: "InActive"
 
@@ -1027,14 +1042,28 @@ Component.onCompleted: {if(width > height) {hmode = true;} else {hmode = false;}
         y:topBar.height
          state: "InActive"
  } */
+DropShadow {
+//anchors.fill: messagePage
+    anchors.centerIn: messagePage
+    width:messagePage.width * 1.1
+    height:messagePage.height
+radius: 4.0
+horizontalOffset: 4
+verticalOffset: 0
+samples: 17
+source: messagePage
+color: "#80000000"
 
+}
  Messages {
      id:messagePage
-     width:parent.width
+     width:if(hmode ==false) {parent.width} else {passerbyGrid.width * 0.30}
      height:parent.height- topBar.height
         y:topBar.height
          state: "InActive"
+
  }
+
 
  MessageContacts {
      id:messageContactsPage
@@ -1133,7 +1162,7 @@ Menus {
     id:themenu
     //anchors.centerIn: parent
     x:0
-    width:if(hmode ==false) {parent.width} else {parent.width / 4}
+    width:if(hmode ==false) {parent.width} else {parent.width / 6}
     y:topBar.height
     height:parent.height - topBar.height
     state:if(hmode == false) {"InActive"} else {"Active"}

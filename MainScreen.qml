@@ -51,7 +51,7 @@ ListView {
             PropertyChanges {
                 target: ms
              //   visible:true
-                x:if(hmode == false) {0} else {passerbyGrid.width}
+                x:if(hmode == false) {0} else {passerbyGrid.width * 0.95}
             }
 
         },

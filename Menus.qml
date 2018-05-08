@@ -21,7 +21,7 @@ Item {
     property string title:""
     property string latestStatus:""
 
-    clip: true
+   // clip: true
 
 
 
@@ -93,6 +93,7 @@ Item {
     ]
 
  Rectangle {
+     id:bgfill
   width:parent.width
   height:parent.height
   color:backgroundColor
@@ -106,6 +107,17 @@ Item {
   }
 
 }
+
+ DropShadow {
+        anchors.fill: bgfill
+        horizontalOffset: 4
+        verticalOffset: 0
+        radius: 10.0
+        samples: 17
+        color: "#80000000"
+        source: bgfill
+
+    }
 
     ListView {
         id:menulistview
@@ -198,10 +210,10 @@ Item {
                         Item{
                             id:icon
                             anchors.left: parent.left
-                            anchors.leftMargin: if(menuitem != "3") {thisWindow.width * 0.03} else {if(hmode == false) { thisWindow.width * 0.70} else {thisWindow.width * 0.60}}
+                            anchors.leftMargin: if(menuitem != "3") {thisWindow.width * 0.03} else {if(hmode == false) { thisWindow.width * 0.70} else {thisWindow.width * 0.40}}
                             anchors.verticalCenter: parent.verticalCenter
-                            width:if(menuitem == 1) {parent.height} else {parent.height * 0.6}
-                            height:if(menuitem == 1) {parent.height} else {parent.height * 0.6}
+                            width:if(menuitem == 1) {if(hmode == false){parent.height} else {parent.height* 0.8}} else {parent.height * 0.6}
+                            height:if(menuitem == 1) {if(hmode == false){parent.height} else {parent.height* 0.8}} else {parent.height * 0.6}
                             Image {
                                 anchors.fill: parent
                                 visible: if(menuitem !=1) {true} else {false}
@@ -233,14 +245,14 @@ Item {
                         Text {
                                 //anchors.horizontalCenter: parent.horizontalCenter
                                 anchors.verticalCenter: parent.verticalCenter
-                                width:parent.width * 0.89
+                                width:(parent.width * 0.88) - icon.width
                                 anchors.left:icon.right
                                 anchors.leftMargin: 10
                                 horizontalAlignment: Text.AlignLeft
                                 //font.pixelSize: parent.width * 0.1 - text.length * 1.2
                                 wrapMode: Text.WordWrap
                                 font.bold:if(menuitem == 1) {true} else {false}
-                                font.pixelSize: if(menuitem == 1) {parent.width * 0.06} else {parent.width * 0.04}
+                                font.pixelSize: if(menuitem == 1) {parent.width * 0.08} else {parent.width * 0.04}
                                text: if(title != "Category") {switch(menuitem) {
                                      case "0": qsTr("Collected");break;
                                      case "2": qsTr("Contacts");break;

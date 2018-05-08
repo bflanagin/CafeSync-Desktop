@@ -24,7 +24,7 @@ import "microblogger.js" as MicroBlogger
 
 
 
-                                 clip: true
+                              //   clip: true
 
                                     //enabled:false
                              //transformOrigin: Item.Center
@@ -131,14 +131,14 @@ import "microblogger.js" as MicroBlogger
                                     x: 0
                                     height: parent.height
                                     width: parent.width
-                                    clip: true
+                                    //clip: true
 
 
 
                                         Rectangle {
                                             id:thecard
                                             width: parent.width * 0.98
-                                            height: parent.height * 0.98
+                                            height: parent.height * 0.99
                                             color: cardcolor
                                             radius: 2
                                             //border.color: "black"
@@ -146,11 +146,11 @@ import "microblogger.js" as MicroBlogger
                                             anchors.horizontalCenter: parent.horizontalCenter
                                             anchors.verticalCenter: parent.verticalCenter
                                             visible: false
-                                            clip:true
+                                           // clip:true
 
                                             Item {
                                                 width: parent.width
-                                                height: parent.height * 0.90
+                                                height: parent.height * 0.99
                                                 clip:true
 
                                               /*  Rectangle {
@@ -230,7 +230,7 @@ import "microblogger.js" as MicroBlogger
                                             anchors.bottom:parent.bottom
                                             anchors.rightMargin:parent.width * 0.02
                                            // anchors.top:nametag.bottom
-                                            anchors.bottomMargin: parent.height * 0.02 //units.gu(2.4)
+                                            anchors.bottomMargin: if(hmode == false) {parent.height * 0.02} else {0}
                                             //font.bold: true
                                             font.pixelSize: parent.width * 0.04 //units.gu(1.8)
                                            text:""+company
@@ -250,7 +250,7 @@ import "microblogger.js" as MicroBlogger
 
                                         Rectangle {
 
-                                            //visible: if(cardStatus.length != 0) {true} else {false}
+                                           visible: if(hmode == false) {true} else {false}
                                             anchors.left:parent.left
                                             anchors.bottom:parent.bottom
                                            // anchors.bottomMargin: parent.height * 0.05

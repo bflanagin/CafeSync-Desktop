@@ -37,7 +37,7 @@ Item {
             PropertyChanges {
                 target:thisWindow
                 area: "Conversations"
-                x:0
+                x:if(hmode == false) {0} else {passerbyGrid.width * 0.95}
 
 
             }
@@ -47,7 +47,7 @@ Item {
              PropertyChanges {
                  target:thisWindow
                  area: "Conversations"
-                 x:width * -1
+                 x:if(hmode ==false) {width * -1} else {width+passerbyGrid.width}
 
 
              }
@@ -202,7 +202,7 @@ ListView {
             width: parent.width * 0.97
             height: parent.height * 0.97
             color:"white"
-            radius:mainView.width * 0.01
+            radius:thisWindow.width * 0.01
         }
 
         DropShadow {
@@ -333,7 +333,7 @@ ListView {
                // anchors.bottom:parent.bottom
                 //anchors.bottomMargin: parent.height * 0.05
                 width:parent.width
-                height:mainView.width * 0.04
+                height:thisWindow.width * 0.04
                 color:converblock.color
 
 
@@ -474,7 +474,7 @@ ListView {
 
     delegate: Item {
         width:parent.width
-        height:content.height + mainView.width * 0.04
+        height:content.height + thisWindow.width * 0.04
         clip:true
 
         CirclePic {
@@ -483,7 +483,7 @@ ListView {
             height: parent.width * 0.2
             anchors.verticalCenter: parent.verticalCenter
             anchors.right:if(who != usercardNum) {parent.right} else {""}
-            anchors.margins: mainView.width * 0.01
+            anchors.margins: thisWindow.width * 0.01
             whichPic: who
             where: if(who != usercardNum){"saved"} else {"mycard"}
 
@@ -498,7 +498,7 @@ ListView {
             height:content.height
             visible: false
             color:"white"
-            radius:mainView.width * 0.03
+            radius:thisWindow.width * 0.03
            // border.color:"black"
            // border.width: 1
         }
@@ -517,9 +517,9 @@ ListView {
         Column {
             id:content
             anchors.right:if(who == usercardNum) {parent.right} else {""}
-            anchors.rightMargin: mainView.width * 0.02
+            anchors.rightMargin: thisWindow.width * 0.02
             anchors.left:if(who != usercardNum) {parent.left} else {""}
-            anchors.leftMargin: mainView.width * 0.02
+            anchors.leftMargin: thisWindow.width * 0.02
             //anchors.horizontalCenter: parent.horizontalCenter
             width:parent.width * 0.75
             spacing: thisWindow.height * 0.01
@@ -569,7 +569,7 @@ ListView {
 Rectangle {
     id:bottomBar
     anchors.bottom:parent.bottom
-    anchors.bottomMargin: mainView.width * 0.01
+    anchors.bottomMargin: thisWindow.width * 0.01
     width:parent.width
     height:(parent.height * 0.01) + messageField.height
     color:bottombarColor
@@ -579,8 +579,8 @@ Rectangle {
         anchors.verticalCenter: parent.verticalCenter
         anchors.left:parent.left
         anchors.leftMargin: thisWindow.height * 0.01
-        height:mainView.width * 0.06
-        width:mainView.width * 0.06
+        height:thisWindow.width * 0.06
+        width:thisWindow.width * 0.06
         source:"./icons/add.svg"
         Flasher {
 
@@ -616,8 +616,8 @@ Rectangle {
        anchors.rightMargin: thisWindow.height * 0.01
        source:"./icons/message.svg"
        anchors.verticalCenter: parent.verticalCenter
-       width:mainView.width * 0.06
-       height:mainView.width * 0.06
+       width:thisWindow.width * 0.06
+       height:thisWindow.width * 0.06
        Flasher {
 
        }
